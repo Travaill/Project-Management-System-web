@@ -40,12 +40,16 @@ router.beforeEach((to, from, next) => {
 });
 
 router.beforeEach((to, from, next) => {
+
     if (to.meta.requireAuth) {  // 判断该路由是否需要登录权限
         if (!localStorage.currenUser_token) {
             store.commit('setToken', localStorage.getItem('currentUser_token'));
-        }   
+        }
         if (!localStorage.currenUser_level) {
             store.commit('setLevel', localStorage.getItem('currentUser_level'));
+        }
+        if (!localStorage.currenUser) {
+            store.commit('setUser', localStorage.getItem('currentUser'));
         }
         if (store.state.token) {  // 通过vuex state获取当前的token是否存在
             next();

@@ -3,10 +3,11 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 const state = {
-    user:'',
+    userName: '',
+    user: '',
     token: '',
     level: '',
-    userId:'',
+    userId: '',
     projectDetail: {
         id: '',
         name: '',
@@ -14,8 +15,7 @@ const state = {
         grade: '',
         description: '',
         detail: '',
-        site_address: '',
-        git_address: '',
+        address: '',
         partner: {},
         contract: '',
         service: '',
@@ -25,8 +25,12 @@ const state = {
 };
 
 const mutations = {
+    setUserName(state, userName) {
+        state.userName = userName;
+    },
     setUser(state, user) {
         state.user = user;
+        window.localStorage.setItem('currentUser', user);
     },
     setToken(state, token) {
         state.token = token;
@@ -45,8 +49,8 @@ const mutations = {
     setPartner(state, partner) {
         state.projectDetail.partner = partner;
     },
-    setAddress(state, git_address) {
-        state.projectDetail.git_address = git_address;
+    setAddress(state, address) {
+        state.projectDetail.address = address;
     },
     setId(state, id) {
         state.projectDetail.id = id;
@@ -54,15 +58,24 @@ const mutations = {
     setUserId(state, userId) {
         state.userId = userId;
     },
+
     logout(state) {
         state.token = null;
         state.level = null;
+        state.userName = null;
+        state.user = null;
+        state.token = null;
+        state.level = null;
+        state.userId = null;
         window.localStorage.clear();
     }
 };
 
 const getters = {
-    getUser:state => {
+    getUserName: state => {
+        return state.userName;
+    },
+    getUser: state => {
         return state.user;
     },
     getToken: state => {
@@ -81,12 +94,12 @@ const getters = {
         return state.projectDetail.partner;
     },
     getAddress: state => {
-        return state.projectDetail.git_address;
+        return state.projectDetail.address;
     },
     getId: state => {
         return state.projectDetail.id;
     },
-    getUserId:state => {
+    getUserId: state => {
         return state.userId;
     },
 };

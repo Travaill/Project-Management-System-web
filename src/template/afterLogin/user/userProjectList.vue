@@ -13,7 +13,7 @@
         <ul>
             <li v-for="(item,index) in userList" v-bind:key="item.name">
                 <a @click="handleClick(index)">
-                    <img src="/src/img/1111468.jpg" width="122px" height="122px"></img>
+                    <img src="/src/img/596274.jpg" width="122px" height="122px"></img>
                     <span>{{item.name}}</span>
                 </a>
             </li>
@@ -44,9 +44,13 @@ export default {
                 console.log(response);
                 that.list = response.data.data;
                 for (let i = 0; i < that.list.length; i++) {
-                    if (that.list.uploader == that.$store.getters.getUser) {
+                    if (that.list[i].uploader == that.$store.getters.getUser) {
                         that.userList.push({
+                            id:that.list[i].id,
                             name: that.list[i].name,
+                            description: that.list[i].description,
+                            site_address: that.list[i].site_address,
+                            partner: that.list[i].partner
                         })
                     }
                 }
@@ -61,7 +65,7 @@ export default {
             this.$store.commit('setId', this.userList[index].id);
             this.$store.commit('setName', this.userList[index].name);
             this.$store.commit('setDecription', this.userList[index].description);
-            this.$store.commit('setAddress', this.userList[index].git_address);
+            this.$store.commit('setAddress', this.userList[index].site_address);
             this.$store.commit('setPartner', this.userList[index].partner);
             this.$router.push({ name: 'projectDetail', params: { projectId: this.userList[index].name } });
         }

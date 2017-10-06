@@ -17,7 +17,7 @@
                     </Tooltip>
                     <Dropdown-menu slot="list" class="Dropdown-menu">
                         <Dropdown-item style="padding:7px 0">
-                            <a @click="$router.push({name:'projectList'})">我的项目</a>
+                            <a @click="$router.push({name:'userProjectList'})">我的项目</a>
                         </Dropdown-item>
                         <Dropdown-item style="padding:7px 0">
                             <a @click="$router.push({name:'userInfoChg'})">个人资料</a>

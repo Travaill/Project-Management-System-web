@@ -5,7 +5,10 @@
             <Row class="row">
                 <Col span="13">
                 <div style="position: relative;" @mouseover="hint()" @mouseout="dispear()">
-                    <Upload action="//jsonplaceholder.typicode.com/posts/">
+                    <Upload 
+                    action="http://119.29.245.247/index.php/upload/name"  
+                    :headers="{ 'X-USER-TOKEN': this.$store.getters.getToken }"
+                    :format="['jpg','png']">
                         <img :src="formValidate.src" style="width:160px; height:170px; cursor:pointer;">
                         <div id="filter">更改头像</div>
                     </Upload>
@@ -22,7 +25,7 @@
                 <p>QQ</p>
                 </Col>
                 <Col span="9">
-                <Form-item prop="QQ">
+                <Form-item prop="QQ" style="margin-bottom: 0px;">
                     <Input type="text" v-model="formValidate.QQ" placeholder="QQ"></Input>
                 </Form-item>
                 </Col>
@@ -30,7 +33,7 @@
                 <p>微信</p>
                 </Col>
                 <Col span="9">
-                <Form-item prop="wechat">
+                <Form-item prop="wechat" style="margin-bottom: 0px;">
                     <Input type="text" v-model="formValidate.wechat" placeholder="weichat"></Input>
                 </Form-item>
                 </Col>
@@ -152,8 +155,8 @@ h2 {
 }
 
 Form {
-    width: 340px;
-    margin: 30px 0;
+    width: 360px;
+    margin: 20px 0;
 }
 
 .row {

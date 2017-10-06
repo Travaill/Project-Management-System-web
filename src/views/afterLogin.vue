@@ -11,11 +11,12 @@
                                 <Icon type="ios-paper" class="icons"></Icon>
                                 内容管理
                             </template>
-                            <Menu-item name="1-1"  style="padding:12px 0;">
-                                <a @click="$router.push({name:'projectList'})" style="padding:12px 88px 12px 44px; color: #495060;">项目管理</a>
+                            <Menu-item name="1-1" style="padding:12px 0;">
+                                <a @click="$router.push({name:'projectList'})" style="padding:12px 88px 12px 44px; color: #495060;">新增项目</a>
                             </Menu-item>
-                            <Menu-item name="1-2">评论管理</Menu-item>
-                            <Menu-item name="1-3">举报管理</Menu-item>
+                            <Menu-item name="1-2" style="padding:12px 0;">
+                                <a @click="$router.push({name:'projectList'})" style="padding:12px 88px 12px 44px; color: #495060;">所有项目</a>
+                            </Menu-item>
                         </Submenu>
                         <Submenu name="2" v-if="$store.getters.getLevel >= 3">
                             <template slot="title">
@@ -23,16 +24,21 @@
                                 成员管理
                             </template>
                             <Menu-item name="2-1">新增用户</Menu-item>
-                            <Menu-item name="2-2">活跃用户</Menu-item>
-                        </Submenu>
-                        <Submenu name="3" v-if="$store.getters.getLevel >= 5">
-                            <template slot="title">
-                                <Icon type="ios-pricetag-outline" class="icons"></Icon>
-                                权限管理
-                            </template>
-                            <Menu-item name="3-1" style="padding:12px 0;">
-                                <a @click="$router.push({name:'membersInfo'})" style="padding:12px 60px 12px 44px; color: #495060;">查看成员资料</a>
+                            <Menu-item name="2-2" style="padding:12px 0;">
+                                <a @click="$router.push({name:'membersInfo'})" style="padding:12px 60px 12px 44px; color: #495060;">所有用户</a>
                             </Menu-item>
+                        </Submenu>
+                         <Submenu name="3">
+                            <template slot="title">
+                                <Icon type="person-add" class="icons"></Icon>
+                                考核管理
+                            </template>
+                            <a style="color:#495060">
+                                <Menu-item name="3-1">
+                                    新成员列表
+                                </Menu-item>
+                            </a>
+                            <Menu-item name="3-2">考核任务发布</Menu-item>
                         </Submenu>
                         <Submenu name="4">
                             <template slot="title">
@@ -101,11 +107,11 @@ export default {
     color: #9ea7b4;
 }
 
-a:hover{
+a:hover {
     color: #2d8cf0;
 }
 
-.icons{
-    font-size:16px;
+.icons {
+    font-size: 16px;
 }
 </style>

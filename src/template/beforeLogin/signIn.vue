@@ -25,7 +25,6 @@ export default {
     name: 'signUpPageOne',
     data() {
         return {
-            current: 0,
             formValidate: {
                 user: '031502631',
                 password: '123456'
@@ -57,7 +56,7 @@ export default {
                             that.$store.commit('setToken', response.data.token);
                             that.$store.commit('setLevel', response.data.level);
                             that.$Message.success(response.data.info);
-                            that.$router.push({ name: 'projectList', params: { userId: response.data.sn } })
+                            that.$router.push({ name: 'userProjectList', params: { userId: response.data.nickname } })
                         })
                         .catch(function(error) {
                             console.log(error);

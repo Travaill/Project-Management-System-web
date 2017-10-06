@@ -10,6 +10,7 @@
 
         <div class="main">
             <h2>修改资料</h2>
+            <Button type="ghost" icon="android-arrow-back" class="return" @click="$router.push({name:'projectList'})">取消</Button>
             <Form ref="formRep" :model="formRep" label-position="top" :rules="formRule">
                 <Form-item label="项目名称" prop="name">
                     <Input v-model="formRep.name"></Input>
@@ -83,6 +84,7 @@ export default {
 
 <style scoped>
 .main {
+    position: relative;
     width: 58%;
     margin: 9px 0;
     line-height: 1.5;
@@ -111,6 +113,16 @@ button {
     .logo{
         display: none;
     }
+}
+
+.return {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 70px;
+    height: 30px;
+    padding: 4px 10px;
+    line-height: 0px;
 }
 </style>
 

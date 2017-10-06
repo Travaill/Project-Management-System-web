@@ -23,12 +23,12 @@
                     <p>方向设置：</p>
                     <Form-item prop="direct">
                         <RadioGroup v-model="form.directChg" type="button" style="margin: 10px 0px 0px -90px;">
-                            <Radio label="FE"></Radio>
-                            <Radio label="PHP"></Radio>
-                            <Radio label="JAVA"></Radio>
-                            <Radio label="Android"></Radio>
-                            <Radio label="iOS"></Radio>
-                            <Radio label="Unity3D"></Radio>
+                            <Radio label="fe"></Radio>
+                            <Radio label="php"></Radio>
+                            <Radio label="java"></Radio>
+                            <Radio label="android"></Radio>
+                            <Radio label="ios"></Radio>
+                            <Radio label="unity3d"></Radio>
                             <Radio label="null"></Radio>
                         </RadioGroup>
                     </Form-item>
@@ -82,7 +82,7 @@ export default {
             email: '',
             num: '',
             form: {
-                directChg: '',
+                directChg: 'FE',
                 position: ''
             },
             formRule: {
@@ -111,6 +111,10 @@ export default {
                 that.qq = response.data.data.qq;
                 that.wechat = response.data.data.wechat;
                 that.email = response.data.data.email;
+
+                that.form.directChg=response.data.data.direct;
+                that.form.position=response.data.data.position;
+
                 that.projectList = response.data.data.project;
                 that.num=that.projectList.length;
             })

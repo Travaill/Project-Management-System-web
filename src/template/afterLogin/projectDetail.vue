@@ -3,9 +3,10 @@
         <div class="project">
             <div class="head">
                 <h2>{{name}}</h2>
+                <Button type="ghost" icon="android-arrow-back" class="return" @click="$router.push({name:'projectList'})">返回</Button>
             </div>
             <p>项目描述：</p>
-            <p>{{description}}</p>
+            <p style="min-width: 180px; min-height: 140px; border: 1px solid #d7dde4; border-radius: 3px; padding: 8px 10px;">{{description}}</p>
             <div class="IP">
                 <p>项目地址：</p>
                 <p>
@@ -85,6 +86,7 @@ export default {
 }
 
 .head {
+    position: relative;
     padding-bottom: 6px;
     border-bottom: 1px solid rgb(225, 228, 232);
 }
@@ -94,12 +96,12 @@ export default {
 }
 
 p {
-    margin: 15px 4px 15px 0;
+    margin: 15px 4px 10px 0;
     font-size: 14px;
 }
 
 .IP {
-    margin-top: 50px;
+    margin-top: 10px;
 }
 
 .IP p {
@@ -120,10 +122,7 @@ p {
 }
 
 button {
-    color: white;
     font-size: 14px;
-    background-color: #fe8e08;
-    border-color: #fe8e08;
 }
 
 button:hover {
@@ -152,5 +151,14 @@ button:hover {
     width: 100%;
     border: 1px solid #24292e;
     background-color: #24292e;
+}
+
+.return {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 30px;
+    padding: 4px 10px;
+    line-height: 0px;
 }
 </style>
