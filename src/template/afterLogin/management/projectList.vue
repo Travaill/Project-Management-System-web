@@ -33,6 +33,7 @@ export default {
         return {
             list: [],
             pageList: [],
+            userList:[],
             title: '所有项目',
             total: 0
         }
@@ -42,15 +43,26 @@ export default {
             headers: { 'X-USER-TOKEN': this.$store.getters.getToken }
         });
         var that = this;
-        instance.get('/index.php/Project/name')
+        instance.get('/manage/project')
             .then(function(response) {
-                console.log(response);
-                that.list = response.data.data;
-                that.total = that.list.length;
-                that.pageList=that.list.slice(0,9);
+                console.log(response.data);
+                that.list = response.data;
+                var arr = Object.keys(that.list); 
+                for (let i = 1; i <= arr.length; i++) {
+                        that.userList.push({
+                            id: that.list[i].id,
+                            name: that.list[i].name,
+                            description: that.list[i].description,
+                            site_address: that.list[i].site_address,
+                            date:that.list[i].date
+                        })
+                }
+                that.total=that.userList.length;
+                that.pageList=that.userList.slice(0,9);
             })
             .catch(function(error) {
-                console.log(error);
+                that.$Message.error(error.response.data.info)
+                
             });
 
     },
@@ -61,6 +73,7 @@ export default {
             this.$store.commit('setDecription', this.list[index].description);
             this.$store.commit('setAddress', this.list[index].site_address);
             this.$store.commit('setPartner', this.list[index].partner);
+            this.$store.commit('setDate', this.list[index].date);
             this.$router.push({ name: 'projectDetail', params: { projectId: this.list[index].name } });
         },
         handleChange(page) {
@@ -73,7 +86,7 @@ export default {
 
 <style scoped>
 .project-list {
-    width: 58%;
+    width: 64%;
     margin: 9px 0;
     line-height: 1.5;
     min-height: 457px;

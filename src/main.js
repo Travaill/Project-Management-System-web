@@ -1,14 +1,15 @@
-import Vue from 'vue';
-import iView from 'iview';
-import VueRouter from 'vue-router';
-import Routers from './router';
-import Vuex from 'vuex';
-import Util from './libs/util';
-import App from './app.vue';
-import axios from 'axios';
-import vueAxios from 'vue-axios';
-import store from './store/store';
 import 'iview/dist/styles/iview.css';
+
+import App from './app.vue';
+import Routers from './router';
+import Util from './libs/util';
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Vuex from 'vuex';
+import axios from 'axios';
+import iView from 'iview';
+import store from './store/store';
+import vueAxios from 'vue-axios';
 
 Vue.use(VueRouter);
 Vue.use(Vuex);
@@ -19,7 +20,7 @@ Vue.use(vueAxios, axios);
 //请求配置
 axios.defaults.timeout = 5000;
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
-axios.defaults.baseURL = 'http://119.29.245.247';
+axios.defaults.baseURL = 'http://127.0.0.1:5000';
 
 //muma2018.com:25761
 

@@ -56,10 +56,11 @@
                 <Tabs value="name">
                     <TabPane label="All" name="all">
                         <ul>
-                            <li v-for="(item,index) in projectList" v-bind:key="item.name">
+                            <li v-for="(item,index) in pageList" v-bind:key="item.name">
                                 <Icon type="ios-paper-outline" class="icons"></Icon>
                                 <a @click="handleClick(index)">{{item.name}}</a>
                             </li>
+                            <Page :total="total" show-elevator :page-size='9' class="page" @on-change="handleChange" simple style="text-align:center;margin-top:10px"></Page>
                         </ul>
                     </TabPane>
                 </Tabs>
@@ -73,7 +74,7 @@
 export default {
     data() {
         return {
-            pic: '',
+            pic: '/src/img/fzu.jpg',
             name: '',
             direct: '',
             grade: '',
@@ -93,7 +94,9 @@ export default {
                     { required: true, message: '权限不能为空', trigger: 'blur' }
                 ]
             },
-            projectList: []
+            projectList: [],
+            pageList: [],
+            total: 0
         }
     },
     mounted: function() {
@@ -112,11 +115,14 @@ export default {
                 that.wechat = response.data.data.wechat;
                 that.email = response.data.data.email;
 
-                that.form.directChg=response.data.data.direct;
-                that.form.position=response.data.data.position;
+                that.form.directChg = response.data.data.direct;
+                that.form.position = response.data.data.position;
 
                 that.projectList = response.data.data.project;
-                that.num=that.projectList.length;
+                that.num = that.projectList.length;
+
+                that.total = that.projectList.length;
+                that.pageList = that.projectList.slice(0, 9);
             })
             .catch(function(error) {
                 console.log(error);
@@ -148,6 +154,18 @@ export default {
                 }
             })
         },
+        handleClick(index) {
+            this.$store.commit('setId', this.projectList[index].id);
+            this.$store.commit('setName', this.projectList[index].name);
+            this.$store.commit('setDecription', this.projectList[index].description);
+            this.$store.commit('setAddress', this.projectList[index].site_address);
+            this.$store.commit('setPartner', this.projectList[index].partner);
+            this.$router.push({ name: 'projectDetail', params: { projectId: this.projectList[index].name } });
+        },
+        handleChange(page) {
+            this.pageList.splice(0, this.pageList.length);
+            this.pageList = this.projectList.slice((page - 1) * 9, page * 9);
+        }
     },
 
 }
@@ -170,8 +188,8 @@ export default {
 
 .projects {
     position: absolute;
-    top: 62px;
-    left: 530px;
+    top: 12px;
+    left: 614px;
     width: 400px;
     border: 1px solid #d7dde4;
     background-color: #FAFAFA;

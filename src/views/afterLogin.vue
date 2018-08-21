@@ -6,7 +6,7 @@
                 <Row>
                     <Col span="5">
                     <Menu width="70%" :open-names="['1','2','3','4']">
-                        <Submenu name="1" v-if="$store.getters.getLevel >= 1">
+                        <Submenu name="1" v-if="$store.getters.getLevel <= 4">
                             <template slot="title">
                                 <Icon type="ios-paper" class="icons"></Icon>
                                 内容管理
@@ -18,7 +18,7 @@
                                 <a @click="$router.push({name:'projectList'})" style="padding:12px 88px 12px 44px; color: #495060;">所有项目</a>
                             </Menu-item>
                         </Submenu>
-                        <Submenu name="2" v-if="$store.getters.getLevel >= 3">
+                        <Submenu name="2" v-if="$store.getters.getLevel <= 3">
                             <template slot="title">
                                 <Icon type="ios-people" class="icons"></Icon>
                                 成员管理
@@ -28,17 +28,17 @@
                                 <a @click="$router.push({name:'membersInfo'})" style="padding:12px 60px 12px 44px; color: #495060;">所有用户</a>
                             </Menu-item>
                         </Submenu>
-                         <Submenu name="3">
+                         <Submenu name="3" v-if="$store.getters.getLevel <= 3">
                             <template slot="title">
                                 <Icon type="person-add" class="icons"></Icon>
                                 考核管理
                             </template>
                             <a style="color:#495060">
                                 <Menu-item name="3-1">
-                                    新成员列表
+                                    考核任务发布
                                 </Menu-item>
                             </a>
-                            <Menu-item name="3-2">考核任务发布</Menu-item>
+                            <Menu-item name="3-2">任务完成情况</Menu-item>
                         </Submenu>
                         <Submenu name="4">
                             <template slot="title">

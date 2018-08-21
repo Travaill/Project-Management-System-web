@@ -10,7 +10,7 @@
 
         <div class="main">
             <h2>新建项目</h2>
-            <Button type="ghost" icon="android-arrow-back" class="return" @click="$router.push({name:'projectList'})">取消</Button>
+            <Button type="ghost" icon="android-arrow-back" class="return" @click="$router.push({name:'userProjectList'})">取消</Button>
             <Form ref="formRep" :model="formRep" label-position="top" :rules="formRule">
                 <Form-item label="项目名称" prop="name">
                     <Input v-model="formRep.name"></Input>
@@ -21,10 +21,6 @@
                 <Form-item label="项目地址" prop="address">
                     <Input v-model="formRep.address">
                     </Input>
-                </Form-item>
-                <Form-item label="项目成员" prop="members">
-                    <Input v-model="formRep.newName" @on-enter="handleAdd" @on-click="handleAdd" style="width:220px;dispaly:inline-block" icon="plus"></Input>
-                    <Tag v-for="item in formRep.partner" v-bind:key="item.name" closable @on-close="handleClose" type="dot" color="blue">{{ item.name }}</Tag>
                 </Form-item>
                 <Form-item>
                     <Button type="success" @click="handleSubmit('formRep')">新建项目</Button>
@@ -43,7 +39,6 @@ export default {
                 description: '',
                 address: '',
                 newName: '',
-                partner: [],
             },
             formRule: {
                 name: [
@@ -63,16 +58,15 @@ export default {
                     var instance = this.axios.create({
                         headers: { 'X-USER-TOKEN': this.$store.getters.getToken }
                     });
-                    instance.post('/index.php/Project/name', {
+                    instance.post('/project/0', {
                         name: this.formRep.name,
                         description: this.formRep.description,
                         site_address: this.formRep.address,
-                        partner: this.formRep.partner,
                     })
                         .then(function(response) {
                             console.log(response);
                             that.$Message.success(response.data.info);
-                            that.$router.push({ name: 'projectList' })
+                            that.$router.push({ name: 'userProjectList' })
                         })
                         .catch(function(error) {
                             console.log(error);
@@ -83,14 +77,6 @@ export default {
                     that.$Message.error('error');
                 }
             })
-        },
-        handleAdd() {
-            if (this.formRep.newName != '') {
-                this.formRep.partner.push({
-                    name: this.formRep.newName
-                })
-                this.formRep.newName = ''
-            }
         },
         handleClose(event, name) {
             const index = this.formRep.partner.indexOf(name);

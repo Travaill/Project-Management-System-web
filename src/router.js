@@ -1,22 +1,19 @@
 import App from './app.vue'
-
-import beforeLogin from './views/beforeLogin.vue'
 import afterLogin from './views/afterLogin.vue'
-
-import signUp from './template/beforeLogin/signUp.vue'
-import signIn from './template/beforeLogin/signIn.vue'
-
+import beforeLogin from './views/beforeLogin.vue'
+import creatNew from './template/afterLogin/user/creatNew.vue'
+import mbsInfoChg from './template/afterLogin/management/mbsInfoChg.vue'
+import membersInfo from './template/afterLogin/management/membersInfo.vue'
+import passwdChg from './template/afterLogin/user/passwdChg.vue'
 import projectDetail from './template/afterLogin/projectDetail.vue'
 import projectInfoChg from './template/afterLogin/projectInfoChg.vue'
-
-import creatNew from './template/afterLogin/user/creatNew.vue'
-import userProjectList from './template/afterLogin/user/userProjectList.vue'
-import passwdChg from './template/afterLogin/user/passwdChg.vue'
-import userInfoChg from './template/afterLogin/user/userInfoChg.vue'
-
-import membersInfo from './template/afterLogin/management/membersInfo.vue'
-import mbsInfoChg from './template/afterLogin/management/mbsInfoChg.vue'
 import projectList from './template/afterLogin/management/projectList.vue'
+import signIn from './template/beforeLogin/signIn.vue'
+import signUp from './template/beforeLogin/signUp.vue'
+import userInfoChg from './template/afterLogin/user/userInfoChg.vue'
+import userManage from './template/afterLogin/management/userManage.vue'
+import userProjectList from './template/afterLogin/user/userProjectList.vue'
+
 const routers = [
     {
         path: '/',
@@ -109,6 +106,14 @@ const routers = [
                 path: 'mbsInfoChg/:name',
                 name: 'mbsInfoChg',
                 component: mbsInfoChg,
+                meta: {
+                    requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+                },
+            },
+            {
+                path: 'userManage',
+                name: 'userManage',
+                component: userManage,
                 meta: {
                     requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
                 },

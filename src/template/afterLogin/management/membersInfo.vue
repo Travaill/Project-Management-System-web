@@ -51,7 +51,7 @@
         <TabPane label="未分组">
             <div class="head" v-for="(item,index) in nullList" v-bind:key="item.name">
                 <a @click="handleClick(nullList,index)">
-                    <img :src="item.pic">
+                    <img src="/src/img/fzu.jpg">
                     <h3>{{item.name}}</h3>
                 </a>
             </div>
@@ -78,47 +78,48 @@ export default {
             headers: { 'X-USER-TOKEN': this.$store.getters.getToken }
         });
         var that = this;
-        instance.get('/index.php/Manger/name/')
+        instance.get('/manage/user')
             .then(function(response) {
                 console.log(response);
-                that.List = response.data.data;
-                for (var i = 0; i < that.List.length; i++) {
-                    if (that.List[i].direct == 'php') {
+                that.List = response.data;
+                var arr = Object.keys(that.List); 
+                for (var i = 1; i <= arr.length; i++) {
+                    if (that.List[i].direction == 'php') {
                         that.phpList.push({
                             name: that.List[i].name,
                             pic: that.List[i].pic,
                             id: that.List[i].id,
                         })
                     }
-                    else if (that.List[i].direct == 'fe') {
+                    else if (that.List[i].direction == 'fe') {
                         that.FEList.push({
                             name: that.List[i].name,
                             pic: that.List[i].pic,
                             id: that.List[i].id,
                         })
                     }
-                    else if (that.List[i].direct == 'java') {
+                    else if (that.List[i].direction == 'java') {
                         that.JAVAList.push({
                             name: that.List[i].name,
                             pic: that.List[i].pic,
                             id: that.List[i].id,
                         })
                     }
-                    else if (that.List[i].direct == 'android') {
+                    else if (that.List[i].direction == 'android') {
                         that.AndroidList.push({
                             name: that.List[i].name,
                             pic: that.List[i].pic,
                             id: that.List[i].id,
                         })
                     }
-                    else if (that.List[i].direct == 'ios') {
+                    else if (that.List[i].direction == 'ios') {
                         that.iOSList.push({
                             name: that.List[i].name,
                             pic: that.List[i].pic,
                             id: that.List[i].id,
                         })
                     }
-                    else if (that.List[i].direct == 'unity3d') {
+                    else if (that.List[i].direction == 'unity3d') {
                         that.UnityList.push({
                             name: that.List[i].name,
                             pic: that.List[i].pic,
@@ -128,10 +129,11 @@ export default {
                     else {
                         that.nullList.push({
                             name: that.List[i].name,
-                            pic: that.List[i].pic,
-                            id: that.List[i].id,
+                            sn: that.List[i].sn,
+                            
                         })
                     }
+                    console.log(that.nullList)
                 }
             })
             .catch(function(error) {

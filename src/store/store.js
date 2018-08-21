@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+
 Vue.use(Vuex);
 
 const state = {
@@ -10,6 +11,7 @@ const state = {
     userId: '',
     projectDetail: {
         id: '',
+        date:'',
         name: '',
         uploader: '',
         grade: '',
@@ -58,7 +60,9 @@ const mutations = {
     setUserId(state, userId) {
         state.userId = userId;
     },
-
+    setDate(state, date) {
+        state.projectDetail.date = date;
+    },
     logout(state) {
         state.token = null;
         state.level = null;
@@ -89,6 +93,9 @@ const getters = {
     },
     getDecription: state => {
         return state.projectDetail.description;
+    },
+    getDate: state => {
+        return state.projectDetail.date;
     },
     getPartner: state => {
         return state.projectDetail.partner;

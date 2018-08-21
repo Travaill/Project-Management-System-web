@@ -26,8 +26,8 @@ export default {
     data() {
         return {
             formValidate: {
-                user: '031502631',
-                password: '123456'
+                user: '',
+                password: ''
             },
 
             ruleValidate: {
@@ -46,9 +46,9 @@ export default {
             this.$refs[name].validate((valid) => {
                 if (valid) {
                     var that = this;
-                    this.axios.post('/index.php/User/name/2', {
+                    this.axios.post('/login', {
+                        sn: this.formValidate.user,
                         password: this.formValidate.password,
-                        content: this.formValidate.user
                     })
                         .then(function(response) {
                             console.log(response);
@@ -56,11 +56,11 @@ export default {
                             that.$store.commit('setToken', response.data.token);
                             that.$store.commit('setLevel', response.data.level);
                             that.$Message.success(response.data.info);
-                            that.$router.push({ name: 'userProjectList', params: { userId: response.data.nickname } })
+                            that.$router.push({ name: 'userProjectList', params: { userId: response.data.sn } })
                         })
                         .catch(function(error) {
                             console.log(error);
-                            that.$Message.error(error.info)
+                            that.$Message.error(error.response.data.info)
                         });
 
                 } else {

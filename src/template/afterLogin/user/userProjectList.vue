@@ -10,8 +10,8 @@
         <div class="head">
             <h2>我的项目</h2>
         </div>
-        <ul>
-            <li v-for="(item,index) in userList" v-bind:key="item.name">
+        <ul style="width:754px">
+            <li v-for="(item,index) in pageList" v-bind:key="item.name">
                 <a @click="handleClick(index)">
                     <img src="/src/img/596274.jpg" width="122px" height="122px"></img>
                     <span>{{item.name}}</span>
@@ -24,6 +24,7 @@
                 </a>
             </li>
         </ul>
+        <Page :total="total" show-elevator :page-size='9' class="page" @on-change="handleChange"></Page>
     </div>
 </template>
 <script>
@@ -31,7 +32,9 @@ export default {
     data() {
         return {
             list: [],
-            userList: []
+            userList: [],
+            pageList: [],
+            total: 0,
         }
     },
     mounted: function() {
@@ -39,24 +42,26 @@ export default {
             headers: { 'X-USER-TOKEN': this.$store.getters.getToken }
         });
         var that = this;
-        instance.get('/index.php/Project/name')
+        instance.get('/project/0')
             .then(function(response) {
-                console.log(response);
-                that.list = response.data.data;
-                for (let i = 0; i < that.list.length; i++) {
-                    if (that.list[i].uploader == that.$store.getters.getUser) {
+                console.log(response.data);
+                that.list=response.data;
+                console.log(that.list);
+                var arr = Object.keys(that.list); 
+                for (let i = 1; i <= arr.length; i++) {
                         that.userList.push({
-                            id:that.list[i].id,
+                            id: that.list[i].id,
                             name: that.list[i].name,
                             description: that.list[i].description,
                             site_address: that.list[i].site_address,
-                            partner: that.list[i].partner
+                            date:that.list[i].date
                         })
-                    }
                 }
+                that.total=that.userList.length;
+                that.pageList=that.userList.slice(0,9);
             })
             .catch(function(error) {
-                console.log(error);
+                that.$Message.error(error.response.data.info)
             });
 
     },
@@ -66,8 +71,12 @@ export default {
             this.$store.commit('setName', this.userList[index].name);
             this.$store.commit('setDecription', this.userList[index].description);
             this.$store.commit('setAddress', this.userList[index].site_address);
-            this.$store.commit('setPartner', this.userList[index].partner);
+            this.$store.commit('setDate', this.userList[index].date);
             this.$router.push({ name: 'projectDetail', params: { projectId: this.userList[index].name } });
+        },
+        handleChange(page) {
+            this.pageList.splice(0, this.pageList.length);
+            this.pageList = this.userList.slice((page - 1) * 9, page * 9);
         }
     }
 }
@@ -75,7 +84,7 @@ export default {
 
 <style scoped>
 .project-list {
-    width: 58%;
+    width: 64%;
     margin: 9px 0;
     line-height: 1.5;
     min-height: 457px;
@@ -120,6 +129,10 @@ ul li img {
 
 .logo {
     display: block;
+}
+
+.page {
+    margin: 46px 158px;
 }
 
 @media (max-width:1000px) {
